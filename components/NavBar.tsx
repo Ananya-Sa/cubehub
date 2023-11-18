@@ -12,8 +12,18 @@ function NavBar() {
   return (
     <header className="max-w-[90%] mx-auto">
       <nav className="w-full">
-        <div className="flex justify-between items-center py-4">
-          <div className="text-2xl text-white font-bold">CubeHub</div>
+        <div className="flex justify-between items-center py-2 start-0">
+          <div className="flex items-center">
+            <Image
+              src={"/logocube.png"}
+              width={70}
+              height={70}
+              alt="logoCube"
+              className=" object-cover"
+            />
+            <div className="text-2xl text-white font-bold ">CubeHub</div>
+          </div>
+
           <div className="md:hidden block">
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
@@ -66,7 +76,7 @@ function NavBar() {
               className="hover:bg-slate-900 hover:underline transition duration-300 px-4 py-2 rounded-md"
               href={"/about_it"}
             >
-              About It
+              About Us
             </Link>
             <Link
               className="hover:bg-slate-900 hover:underline transition duration-300 px-4 py-2 rounded-md"
