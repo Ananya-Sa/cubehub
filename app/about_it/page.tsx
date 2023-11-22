@@ -67,10 +67,9 @@ function page() {
               puzzles or want to embark on a fascinating journey of discovery,
               you've come to the right place. We're excited to be a part of your
               puzzle-solving adventure and look forward to celebrating your
-              achievements with you. Thank you for choosing The Cube Solver as
-              your trusted resource. Feel free to adapt and modify this content
-              to reflect the specific mission and values of your Cube Solver
-              website.
+              achievements with you. Thank you for choosing The CubeHub as your
+              trusted resource. Feel free to adapt and modify this content to
+              reflect the specific mission and values of your CubeHub website.
             </p>
           </div>
         </footer>

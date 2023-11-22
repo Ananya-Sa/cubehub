@@ -1,15 +1,21 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { Button } from "@/components/ui/button";
+import { useEffect, useRef, useState } from "react";
+import useWebSocket from "react-use-websocket";
 import Webcam from "react-webcam";
+import { Socket, io } from "socket.io-client";
 
 function page() {
   const webCamRef = useRef<Webcam | null>(null);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const [isPlaying, setIsPlaying] = useState(true);
+  const { sendMessage, getWebSocket } = useWebSocket("ws://localhost:8000/ws");
 
   useEffect(() => {
     const canvas = canvasRef.current;
     const context = canvas?.getContext("2d");
+    const socket = getWebSocket();
 
     const captureFrame = () => {
       if (webCamRef.current && context) {
@@ -24,19 +30,7 @@ function page() {
         // Convert the captured frame to a Blob
         canvas!.toBlob(async (blob) => {
           if (blob) {
-            // Send the Blob to the backend
-            const formData = new FormData();
-            formData.append("videoFrame", blob);
-
-            const response = await fetch(
-              "http://localhost:8000/api/upload-video-frame",
-              {
-                method: "POST",
-                body: formData,
-              }
-            );
-
-            console.log(response);
+            sendMessage(blob);
           }
         });
       }
@@ -44,32 +38,51 @@ function page() {
 
     const intervalId = setInterval(captureFrame, 100); // Capture frames every 100ms
 
-    return () => clearInterval(intervalId);
+    return () => {
+      clearInterval(intervalId);
+      socket?.close();
+    };
   }, []);
 
   const startCamera = () => {
     if (webCamRef.current) {
       webCamRef.current.video?.play();
+      setIsPlaying(true);
     }
   };
 
   const stopCamera = () => {
     if (webCamRef.current) {
       webCamRef.current.video?.pause();
+      setIsPlaying(false);
     }
   };
 
   return (
-    <div>
-      <h1 className="text-4xl">Play</h1>
-      <Webcam audio={false} ref={webCamRef} mirrored={true} />
-      <button onClick={startCamera}>Start Camera</button>
-      <button onClick={stopCamera}>Stop Camera</button>
+    <div className="max-w-[90%] mx-auto mt-6">
+      <div>
+        <Webcam
+          audio={false}
+          ref={webCamRef}
+          mirrored={true}
+          className={`rounded-md border border-white ${
+            isPlaying ? "" : "hidden"
+          }`}
+          videoConstraints={{
+            height: 600,
+            width: 1000,
+          }}
+        />
+
+        <p className={`${isPlaying ? "hidden" : ""} `}>No video</p>
+      </div>
+      <Button onClick={startCamera}>Start Camera</Button>
+      <Button onClick={stopCamera}>Stop Camera</Button>
       <canvas
         ref={canvasRef}
-        style={{ display: "none" }} // Hide the canvas element
-        width={640}
-        height={480}
+        style={{ display: "none" }}
+        width={16 * 50}
+        height={9 * 50}
       />
     </div>
   );

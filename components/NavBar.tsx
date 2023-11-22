@@ -41,17 +41,17 @@ function NavBar() {
                 <DropdownMenuItem>
                   <Link
                     className="hover:bg-slate-900 hover:underline transition duration-300 px-4 py-2 rounded-md"
-                    href={"/about_it"}
+                    href={"/play"}
                   >
-                    About It
+                    Play
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem>
                   <Link
                     className="hover:bg-slate-900 hover:underline transition duration-300 px-4 py-2 rounded-md"
-                    href={"/how-to-play"}
+                    href={"/about_it"}
                   >
-                    How to play
+                    About It
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem>
@@ -74,15 +74,15 @@ function NavBar() {
             </Link>
             <Link
               className="hover:bg-slate-900 hover:underline transition duration-300 px-4 py-2 rounded-md"
-              href={"/about_it"}
+              href={"/play"}
             >
-              About Us
+              Play
             </Link>
             <Link
               className="hover:bg-slate-900 hover:underline transition duration-300 px-4 py-2 rounded-md"
-              href={"/how-to-play"}
+              href={"/about_it"}
             >
-              How to play
+              About Us
             </Link>
             <Link
               className="hover:bg-slate-900 hover:underline transition duration-300 px-4 py-2 rounded-md border-amber-200"
